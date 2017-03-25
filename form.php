@@ -23,11 +23,23 @@ border-radius:9px;
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery -ui.js"></script>
   <script>
-  $( function() {
+  $(function() 
+ { 
+ $( "#datepicker" ).datepicker({
+ changeMonth:true,
+ changeYear:true,
+ yearRange:"-100:+0",
+ dateFormat:"yy-mm-dd"
+ //format: 'yyyy-mm-dd'
+ });
+ });
+  /*$( function() {
     $( "#datepicker" ).datepicker();
-  } );
+  
+    dateFormat:'yy-mm-dd'
+  } );*/
   </script>
 </head>
 <body bgcolor="olive">
@@ -36,7 +48,7 @@ border-radius:9px;
 
 <table width=640 border=5 bordercolor="black" align="center" bgcolor="green" cellpadding="12">
 <tr>
-<<td>SOURCE</td>
+<td>SOURCE</td>
 <td>
 <!--<input type="text" placeholder="enter city" required name="source">
 <input list="browsers" placeholder="select source city" required name="source">
@@ -55,7 +67,7 @@ border-radius:9px;
 -->
 
 <?php
-$sql="SELECT sourcename FROM `source`";
+$sql="SELECT sourcename FROM source WHERE sourcename <> 'NULL'";
 $result = $conn->query($sql);
 echo "select source";
 echo "<select name='selectedsource'>";
@@ -85,7 +97,7 @@ echo '</select>';
 
 
 <?php
-$sql="SELECT sourcename FROM `source`";
+$sql="SELECT destinationname FROM source WHERE destinationname <> 'NULL'";
 $result = $conn->query($sql);
 echo "select destiny";
 echo "<select name='selecteddestination'>";
@@ -93,8 +105,36 @@ echo "<select name='selecteddestination'>";
 while($row = $result->fetch_assoc())
 {
   
+  echo "<option value='".$row['destinationname']."'>".$row['destinationname']."</option>";
+  //echo "<option value='".$row['sourcename']."'>".$row['sourcename']."</option>";
 
-  echo "<option value='".$row['sourcename']."'>".$row['sourcename']."</option>";
+
+  
+  //echo "name: " . $row["sourcename"]; 
+}
+echo '</select>';
+?>
+</td>
+</tr>
+<input type="text" id="datepicker" name="datepicker" value="Date"/>
+<!--<p>Date: <input type="text" id="datepicker"></p>-->
+
+<tr>
+<td>SELECT BANK</td>
+<td>
+
+
+<?php
+$sql="SELECT bankname FROM source WHERE bankname <> 'NULL'";
+$result = $conn->query($sql);
+//echo "select bank";
+echo "<select name='selectedbank'>";
+
+while($row = $result->fetch_assoc())
+{
+  
+
+  echo "<option value='".$row['bankname']."'>".$row['bankname']."</option>";
 
 
   
@@ -103,10 +143,17 @@ while($row = $result->fetch_assoc())
 echo '</select>';
 ?>
 
-
 </td>
 </tr>
-<p>Date: <input type="text" id="datepicker"></p>
+<tr>
+<td>
+ENTER CARD NUMBER
+</td>
+<td>
+<input type="text" name="name">
+</td>
+</tr>
+
 <tr>
 <td colspan="2">
 <input type="submit" value="submit" name="submit">
@@ -117,37 +164,7 @@ echo '</select>';
 </font>
 </form>
 <b>CONTACT US:09876543210</b><br>
-<a href="Mail ID:">travelservices@gmail.com</a>
-
-<form name="form1" action="" method="post">
-<select>
-
-<?php
-
-$sql=mysqli_query($conn,"SELECT * FROM `table` ");
-$result = $conn->query($sql);
-while($row = $result->fetch_assoc())
-{
-	
-
-?>
-
-<option>
-<?php
-echo "name: " . $row["name"]; 
-?>
-</option>
-
-<?php
-
-
-}
-?>
-<option></option>
-</select>
-</form>
-
-
+<a href="Mail ID:">travelservices@gmail.com</a><br>
 
 </body>
 </html>
